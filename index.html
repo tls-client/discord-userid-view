@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord ユーザーID リスト</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Discord サーバー内の全ユーザーID</h1>
+        <button id="load-users">ユーザーIDを読み込む</button>
+        <ul id="user-list"></ul>
+    </div>
+    <script>
+        document.getElementById('load-users').addEventListener('click', async () => {
+            const response = await fetch('/users');
+            const userIds = await response.json();
+            const userList = document.getElementById('user-list');
+            userList.innerHTML = ''; // リストをクリア
+
+            userIds.forEach(id => {
+                const listItem = document.createElement('li');
+                listItem.textContent = id;
+                userList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>
